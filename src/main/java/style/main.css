@@ -1,0 +1,63 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+
+/*main fxml css*/
+.leftv{
+    -fx-background-color: #324a70;
+}
+.centerv{
+    -fx-background-color: #223657;
+}
+.rightv{
+    -fx-background-color: #061737;
+}
+.sideheader{
+    -fx-background-color: transparent;
+}
+.btns{
+    -fx-background-color: transparent;
+    -fx-justify-content: center;
+    -fx-align-content: center;
+   
+}
+.btns:hover{
+    -fx-background-color: #304261;
+    -fx-transform: translate(5px,12px);
+    -fx-text-color: black;
+}
+.btns:pressed{
+    -fx-background-color:#1c3461; 
+} 
+.btns:focused{
+    -fx-background-color: #1c3461;
+}
+
+/*add new fxml css*/
+
+.tophead{
+    -fx-background-color: #29354b;
+}
+.centerdiv{
+}
+.sep{
+    -fx-background-color: #000;
+    -fx-margin: 30px;
+}
+.btnOk{
+    -fx-background-color: #8bb9f3;
+    
+}
+.foot{
+    -fx-background-color: #8b85c9;
+}
+.btnClose{
+    -fx-background-color: transparent;
+}
+/*today fxml css*/
+.tbView{
+    -fx-background-color: transparent;
+    -fx-text-color: #fff;
+    -fx-border-color: #fff;
+}
