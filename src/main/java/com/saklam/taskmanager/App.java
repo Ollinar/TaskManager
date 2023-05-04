@@ -14,8 +14,9 @@ public class App extends Application {
     static Stage stage;
     @Override
     public void start(Stage PrimStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("hello-view.fxml"));
-        scene = new Scene(fxmlLoader.load());
+
+        scene = new Scene(loadFXML("QRScanner"));
+        stage = new Stage();
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.sizeToScene();
@@ -27,8 +28,11 @@ public class App extends Application {
     }
 
     public static void setRoot(String fxmlName) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("fxml/" + fxmlName + ".fxml")));
-        scene.setRoot(root);
+        scene.setRoot(loadFXML(fxmlName));
         stage.sizeToScene();
+    }
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader  (Main.class.getResource("/fxml/"+fxml + ".fxml"));
+        return fxmlLoader.load();
     }
 }
