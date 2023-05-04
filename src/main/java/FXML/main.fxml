@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="644.0" prefWidth="1095.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.taskmanager.MainController">
+    <stylesheets>
+        <URL value="@/styles/main.css" />
+    </stylesheets>
+   <children>
+      <BorderPane prefHeight="628.0" prefWidth="967.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <right>
+            <Pane prefHeight="644.0" prefWidth="179.0" styleClass="rightv" stylesheets="@../styles/main.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="20.0" layoutY="47.0" prefHeight="19.0" prefWidth="154.0" text="Motivational quotes" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="-10.0" layoutY="80.0" prefHeight="3.0" prefWidth="186.0" />
+               </children>
+            </Pane>
+         </right>
+         <left>
+            <VBox prefHeight="628.0" prefWidth="238.0" styleClass="leftv" stylesheets="@../styles/main.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="108.0" prefWidth="242.0" styleClass="sideheader" stylesheets="@../styles/main.css" text="DASHBOARD" textFill="WHITE">
+                     <font>
+                        <Font name="Footlight MT Light" size="25.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="56.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/icons8-dashboard-layout-48.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator prefWidth="200.0" />
+                  <Button fx:id="btnToday" mnemonicParsing="false" onAction="#goToday" prefHeight="116.0" prefWidth="243.0" styleClass="btns" stylesheets="@../styles/main.css" text="Today" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/icons8-star-48%20(1).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnUpcoming" mnemonicParsing="false" onAction="#goUpcoming" prefHeight="114.0" prefWidth="238.0" styleClass="btns" stylesheets="@../styles/main.css" text="Upcoming" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/icons8-note-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnImportant" mnemonicParsing="false" onAction="#goImportant" prefHeight="105.0" prefWidth="238.0" styleClass="btns" stylesheets="@../styles/main.css" text="Important" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/icons8-important-event-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnTrash" mnemonicParsing="false" onAction="#goTrash" prefHeight="79.0" prefWidth="253.0" styleClass="btns" stylesheets="@../styles/main.css" text="Finished" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/icons8-delete-trash-100.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="addnew" mnemonicParsing="false" onAction="#add" prefHeight="115.0" prefWidth="241.0" styleClass="btns" stylesheets="@../styles/main.css" text="ADD NEW" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="67.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/icons8-add-new-100.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI Bold" size="22.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox prefHeight="628.0" prefWidth="615.0" styleClass="centerv" stylesheets="@../styles/main.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" prefHeight="330.0" prefWidth="678.0" text="Welcome" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe Script" size="70.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="122.0" prefWidth="680.0" text="&quot;Get organized and be moe productive with our to do list app&quot;" textAlignment="JUSTIFY" textFill="#ff9090">
+                     <font>
+                        <Font name="SansSerif Regular" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
