@@ -5,10 +5,10 @@
 
 /*main fxml css*/
 .leftv{
-    -fx-background-color: #324a70;
+    -fx-background-color: #20474c;
 }
 .centerv{
-    -fx-background-color: #223657;
+    -fx-background-color: #2b8c97;
 }
 .rightv{
     -fx-background-color: #061737;
@@ -26,6 +26,7 @@
     -fx-background-color: #304261;
     -fx-transform: translate(5px,12px);
     -fx-text-color: black;
+    
 }
 .btns:pressed{
     -fx-background-color:#1c3461; 
@@ -58,6 +59,9 @@
 /*today fxml css*/
 .tbView{
     -fx-background-color: transparent;
-    -fx-text-color: #fff;
     -fx-border-color: #fff;
+    
+}
+.bg{
+    -fx-background-color: #223657;
 }
