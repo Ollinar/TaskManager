@@ -15,7 +15,7 @@ public class App extends Application {
     @Override
     public void start(Stage PrimStage) throws IOException {
 
-        scene = new Scene(loadFXML("QRScanner"));
+        scene = new Scene(loadFXML("Today"));
         stage = new Stage();
         stage.setTitle("Task Completed");
         stage.setScene(scene);

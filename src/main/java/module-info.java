@@ -12,6 +12,8 @@ module com.saklam.taskmanager {
 
     opens com.saklam.taskmanager.controllers to javafx.fxml;
     opens com.saklam.taskmanager to javafx.fxml;
+    opens com.saklam.taskmanager.models to javafx.base;
     exports com.saklam.taskmanager.models to java.compiler;
     exports com.saklam.taskmanager;
+    exports com.saklam.taskmanager.controllers;
 }
