@@ -1,6 +1,7 @@
 package com.saklam.taskmanager.controllers;
 
 import com.saklam.taskmanager.Database;
+import com.saklam.taskmanager.models.SelectedTask;
 import com.saklam.taskmanager.models.TaskInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,7 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import javafx.scene.input.MouseEvent;
 
 public class TodayTaskController implements Initializable {
 
@@ -50,8 +54,30 @@ public class TodayTaskController implements Initializable {
 
     ObservableList<TaskInfo> taskList = FXCollections.observableArrayList();
     FilteredList<TaskInfo> filter;
+    @FXML
+    private Button btnEdit;
+    @FXML
+    private Button btnDelete;
+    @FXML
+    private Button btnMarkDone;
+    @FXML
+    private Button btnGenQR;
 
 
+    private void disableControllButtons(){
+        btnMarkDone.setDisable(true);
+        btnDelete.setDisable(true);
+        btnGenQR.setDisable(true);
+        btnEdit.setDisable(true);
+    }
+    
+    private void enableControllButtons(){
+        btnMarkDone.setDisable(false);
+        btnDelete.setDisable(false);
+        btnGenQR.setDisable(false);
+        btnEdit.setDisable(false);
+    }
+    
 
 
     @FXML
@@ -82,7 +108,9 @@ public class TodayTaskController implements Initializable {
 
     @FXML
     void goToday(ActionEvent event) {
-
+        LocalDate dateNow = LocalDate.now();
+        Date today = Date.valueOf(dateNow);
+        filter.setPredicate(taskInfo->(taskInfo.getDueDate().compareTo(today)==0) && taskInfo.getStatus().equalsIgnoreCase("Pending"));
     }
 
     @FXML
@@ -117,7 +145,19 @@ public class TodayTaskController implements Initializable {
         sorted.comparatorProperty().bind(taskTable.comparatorProperty());
         taskTable.setItems(sorted);
         filter.setPredicate(taskInfo -> true);
+        disableControllButtons();
+        
+        
 
+    }
 
+    @FXML
+    private void selectTask(MouseEvent event) {
+        TaskInfo selectTask = taskTable.getSelectionModel().getSelectedItem();
+        if (selectTask != null) {
+            SelectedTask.getINSTANCE().setSelectedTask(selectTask);
+            enableControllButtons();
+        }
+        
     }
 }

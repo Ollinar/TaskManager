@@ -100,7 +100,7 @@
                <children>
                   <Pane prefHeight="648.0" prefWidth="678.0">
                      <children>
-                        <TableView fx:id="taskTable" layoutX="39.0" layoutY="77.0" prefHeight="498.0" prefWidth="797.0" styleClass="tbView" stylesheets="@../styles/main.css">
+                        <TableView fx:id="taskTable" layoutX="39.0" layoutY="77.0" onMouseClicked="#selectTask" prefHeight="498.0" prefWidth="797.0" styleClass="tbView" stylesheets="@../styles/main.css">
                            <columns>
                               <TableColumn fx:id="colTaskName" prefWidth="167.19998741149902" style="-fx-background-color: transparent;" text="Task Name" />
                               <TableColumn fx:id="colDue" minWidth="0.0" prefWidth="145.5999755859375" style="-fx-background-color: transparent;" text="Due Date" />
@@ -119,7 +119,7 @@
                               </ImageView>
                            </graphic>
                         </Label>
-                        <Button layoutX="569.0" layoutY="586.0" mnemonicParsing="false" onAction="#editTask" prefHeight="45.0" prefWidth="146.0" styleClass="btns" stylesheets="@../styles/main.css" text="EDIT" textFill="WHITE">
+                        <Button fx:id="btnEdit" layoutX="569.0" layoutY="586.0" mnemonicParsing="false" onAction="#editTask" prefHeight="45.0" prefWidth="146.0" styleClass="btns" stylesheets="@../styles/main.css" text="EDIT" textFill="WHITE">
                            <font>
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
@@ -131,7 +131,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="707.0" layoutY="586.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="44.0" prefWidth="136.0" styleClass="btns" stylesheets="@../styles/main.css" text="DELETE" textFill="WHITE">
+                        <Button fx:id="btnDelete" layoutX="707.0" layoutY="586.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="44.0" prefWidth="136.0" styleClass="btns" stylesheets="@../styles/main.css" text="DELETE" textFill="WHITE">
                            <font>
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
@@ -143,7 +143,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="354.0" layoutY="589.0" mnemonicParsing="false" onAction="#markAsDone" prefHeight="46.0" prefWidth="240.0" styleClass="btns" stylesheets="@../styles/main.css" text="MARK AS DONE" textFill="WHITE">
+                        <Button fx:id="btnMarkDone" layoutX="354.0" layoutY="589.0" mnemonicParsing="false" onAction="#markAsDone" prefHeight="46.0" prefWidth="240.0" styleClass="btns" stylesheets="@../styles/main.css" text="MARK AS DONE" textFill="WHITE">
                            <font>
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
@@ -155,7 +155,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="154.0" layoutY="589.0" mnemonicParsing="false" onAction="#generateQR" prefHeight="46.0" prefWidth="240.0" styleClass="btns" stylesheets="@../styles/main.css" text="GENERATE QR" textFill="WHITE">
+                        <Button fx:id="btnGenQR" layoutX="154.0" layoutY="589.0" mnemonicParsing="false" onAction="#generateQR" prefHeight="46.0" prefWidth="240.0" styleClass="btns" stylesheets="@../styles/main.css" text="GENERATE QR" textFill="WHITE">
                            <font>
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>

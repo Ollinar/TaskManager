@@ -1,16 +1,16 @@
 package com.saklam.taskmanager.models;
 
 public class SelectedTask {
-    private final SelectedTask INSTANCE = new SelectedTask();
+    private static final SelectedTask INSTANCE = new SelectedTask();
     private TaskInfo selectedTask;
     private SelectedTask(){
     }
 
-    public SelectedTask getINSTANCE() {
+    public static SelectedTask getINSTANCE() {
         return INSTANCE;
     }
 
-    public TaskInfo getSelectedTask() {
+    public  TaskInfo getSelectedTask() {
         return selectedTask;
     }
 
