@@ -7,6 +7,7 @@ module com.saklam.taskmanager {
     requires webcam.capture;
     requires java.desktop;
     requires javafx.swing;
+    requires java.base;
 
 
 

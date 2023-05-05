@@ -21,6 +21,16 @@ public class TaskInfo {
         this.improtance = improtance;
     }
 
+    public TaskInfo(String taskName, String taskDesc, Date dueDate, int improtance) {
+        this.taskName = taskName;
+        this.taskDesc = taskDesc;
+        this.dueDate = dueDate;
+        this.improtance = improtance;
+    }
+
+
+    
+
     public int getImprotance() {
         return improtance;
     }

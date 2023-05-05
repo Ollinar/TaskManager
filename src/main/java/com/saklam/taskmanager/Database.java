@@ -1,6 +1,7 @@
 package com.saklam.taskmanager;
 
 import com.saklam.taskmanager.models.PendingTask;
+import com.saklam.taskmanager.models.SelectedTask;
 import com.saklam.taskmanager.models.TaskInfo;
 import javafx.collections.ObservableList;
 
@@ -20,12 +21,13 @@ public class Database {
 
     public static void insertTask(TaskInfo taskToInsert) throws SQLException {
         try(Connection conn = connectDB();
-            PreparedStatement stmnt = conn.prepareStatement("INSERT INTO alltask (taskName,taskDesc,dateAdded,status)VALUES (?,?,?,?)")
+            PreparedStatement stmnt = conn.prepareStatement("INSERT INTO alltask (taskName,taskDesc,dueDate,status,importance)VALUES (?,?,?,?,?)")
             ){
                 stmnt.setString(1,taskToInsert.getTaskName());
                 stmnt.setString(2,taskToInsert.getTaskDesc());
-                stmnt.setDate(3,taskToInsert.getDateAdded());
-                stmnt.setString(4,taskToInsert.getStatus());
+                stmnt.setDate(3,taskToInsert.getDueDate());
+                stmnt.setString(4,"Pending");
+                stmnt.setInt(5, taskToInsert.getImprotance());
                 stmnt.execute();
         }
     }
@@ -51,9 +53,17 @@ public class Database {
 
     public static void deleteTask(TaskInfo taskToDelete) throws SQLException {
         try(Connection conn = connectDB();
-            PreparedStatement stmnt = conn.prepareStatement("DELETE * FROM alltask WHERE teskID = ?")){
+            PreparedStatement stmnt = conn.prepareStatement("DELETE FROM alltask WHERE taskID = ?")){
             stmnt.setInt(1,taskToDelete.getTaskID());
             stmnt.execute();
+        }
+    }
+    public static void updateStatusTOCompleted(TaskInfo taskToUpdate) throws SQLException{
+        try(Connection conn = connectDB();
+            PreparedStatement stmnt = conn.prepareStatement("UPDATE alltask SET status='Completed' WHERE taskID=?")){
+            stmnt.setInt(1, taskToUpdate.getTaskID());
+            stmnt.execute();
+            
         }
     }
 }
