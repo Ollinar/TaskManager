@@ -8,13 +8,23 @@ public class TaskInfo {
     private String taskDesc;
     private String status;
     private Date dateAdded;
+    private int improtance;
 
-    public TaskInfo(int taskID, String taskName, String taskDesc, String status, Date dateAdded) {
+    public TaskInfo(int taskID, String taskName, String taskDesc, String status, Date dateAdded, int improtance) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.taskDesc = taskDesc;
         this.status = status;
         this.dateAdded = dateAdded;
+        this.improtance = improtance;
+    }
+
+    public int getImprotance() {
+        return improtance;
+    }
+
+    public void setImprotance(int improtance) {
+        this.improtance = improtance;
     }
 
     public int getTaskID() {

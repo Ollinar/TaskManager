@@ -5,8 +5,8 @@ import java.sql.Date;
 public class CompletedTask extends PendingTask{
     private Date dateCompleted;
 
-    public CompletedTask(int taskID, String taskName, String taskDesc, String status, Date dateAdded, Date dueDate, Date dateCompleted) {
-        super(taskID, taskName, taskDesc, status, dateAdded, dueDate);
+    public CompletedTask(int taskID, String taskName, String taskDesc, String status, Date dateAdded, int improtance, Date dueDate, Date dateCompleted) {
+        super(taskID, taskName, taskDesc, status, dateAdded, improtance, dueDate);
         this.dateCompleted = dateCompleted;
     }
 

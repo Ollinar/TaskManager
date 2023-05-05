@@ -17,7 +17,7 @@ public class App extends Application {
 
         scene = new Scene(loadFXML("QRScanner"));
         stage = new Stage();
-        stage.setTitle("Hello!");
+        stage.setTitle("Task Completed");
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
