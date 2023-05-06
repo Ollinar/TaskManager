@@ -14,6 +14,6 @@
       </ImageView>
    </center>
    <bottom>
-      <Label fx:id="testResult" prefHeight="17.0" prefWidth="104.0" text="nbkjhblh" BorderPane.alignment="CENTER" />
+      <Label fx:id="testResult" prefHeight="18.0" prefWidth="346.0" text="nbkjhblh" textFill="#f7f7f7" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

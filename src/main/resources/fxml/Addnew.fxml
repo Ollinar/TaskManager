@@ -112,7 +112,7 @@
                                     <Font name="Comic Sans MS" size="13.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="118.0" layoutY="95.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="118.0" styleClass="btnOk" stylesheets="@../styles/main.css" text="Scan QR">
+                              <Button layoutX="118.0" layoutY="95.0" mnemonicParsing="false" onAction="#openQRScanner" prefHeight="31.0" prefWidth="118.0" styleClass="btnOk" stylesheets="@../styles/main.css" text="Scan QR">
                                  <font>
                                     <Font name="Comic Sans MS" size="13.0" />
                                  </font>

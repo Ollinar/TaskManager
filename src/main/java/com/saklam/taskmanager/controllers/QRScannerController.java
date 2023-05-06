@@ -5,6 +5,7 @@ import com.google.zxing.*;
 
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import com.saklam.taskmanager.Encryptor;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -64,10 +65,12 @@ public class QRScannerController implements Initializable {
                         BinaryBitmap bmp = new BinaryBitmap(new HybridBinarizer(luminanceSource));
                         try {
                             Result result = new MultiFormatReader().decode(bmp);
-                            Platform.runLater(()->testResult.setText(result.getText()));
+                            String temp =  Encryptor.decrypt(result.getText(), "saklam");
+                            Platform.runLater(()->testResult.setText(temp));
 
-                        } catch (NotFoundException e) {
-
+                        } catch (Exception e) {
+                            
+                            System.out.println(e.getMessage());
                         }
 
 

@@ -4,8 +4,10 @@
  */
 package com.saklam.taskmanager.controllers;
 
+import com.saklam.taskmanager.App;
 import com.saklam.taskmanager.Database;
 import com.saklam.taskmanager.models.TaskInfo;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -15,6 +17,9 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -22,7 +27,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -88,6 +95,22 @@ public class AddNewController implements Initializable {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
         }
 
+    }
+
+    @FXML
+    private void openQRScanner(ActionEvent event) {
+        try {
+            Parent root = App.loadFXML("QRScanner");
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+            stage.showAndWait();
+            ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+        } catch (IOException ex) {
+            new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
+        }
     }
 
 }
