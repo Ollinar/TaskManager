@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class Database {
     private static final String dbUrl="jdbc:mysql://localhost:3306/taskmanagerdb";
-    private static final String dbPass = "";
+    private static final String dbPass = "carpio15";
     private static final String dbUsername = "root";
 
 
@@ -66,4 +66,18 @@ public class Database {
             
         }
     }
+    public static void editTask(TaskInfo taskToDelete) throws SQLException {
+        try(Connection conn = connectDB();
+            PreparedStatement statement = conn.prepareStatement("UPDATE alltask SET taskName = ?, taskDesc = ?, dueDate = ?, importance = ? WHERE taskID = ?")){
+            statement.setString(1,taskToDelete.getTaskName());
+            statement.setString(2,taskToDelete.getTaskDesc());
+            statement.setDate(3,taskToDelete.getDueDate());
+            statement.setInt(4,taskToDelete.getImprotance());
+            statement.setInt(5,taskToDelete.getTaskID());
+            statement.execute();
+            System.out.println("test");
+
+        }
+    }
+
 }

@@ -11,6 +11,8 @@ import com.saklam.taskmanager.models.TaskInfo;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -211,8 +213,9 @@ public class TodayTaskController implements Initializable {
     @FXML
     void generateQR(ActionEvent event) {
         try {
+            final String SEPARATOR = "<ranilloPogi>";
             TaskInfo selectedTask = SelectedTask.getINSTANCE().getSelectedTask();
-            String toEncode = selectedTask.getTaskName() +"||"+selectedTask.getTaskDesc()+"||"+ String.valueOf(selectedTask.getImprotance()) + "||" + selectedTask.getDueDate().toString();
+            String toEncode = selectedTask.getTaskName() + SEPARATOR +selectedTask.getTaskDesc()+ SEPARATOR + selectedTask.getImprotance() + SEPARATOR + selectedTask.getDueDate().toString();
             BufferedImage temp = QRGen.generateQR(Encryptor.encrypt(toEncode, "saklam"), 500);
             QRStore.getINSTANCE().setBuffredImage(temp);
             Parent root = App.loadFXML("QRView");
@@ -282,11 +285,14 @@ public class TodayTaskController implements Initializable {
         colTaskName.setCellValueFactory(new PropertyValueFactory<>("taskName"));
         colDesc.setCellValueFactory(new PropertyValueFactory<>("taskDesc"));
         colDue.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-        try {
-            Database.refreshTaskList(taskList);
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).showAndWait();
-        }
+        new Thread(() -> {
+                try {
+                    Database.refreshTaskList(taskList);
+                } catch (SQLException e) {
+                    Platform.runLater(()->new Alert(Alert.AlertType.ERROR,e.getMessage(),ButtonType.OK).show());
+                }
+        }).start();
+
         filter = new FilteredList<>(taskList);
         SortedList<TaskInfo> sorted = new SortedList<>(filter);
         sorted.comparatorProperty().bind(taskTable.comparatorProperty());

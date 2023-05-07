@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,13 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -55,6 +50,14 @@ public class AddNewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        LocalDate today = LocalDate.now();
+        dteDue.setDayCellFactory(d-> new DateCell(){
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                setDisable(item.isBefore(today));
+            }
+        });
 
     }
 
@@ -66,26 +69,25 @@ public class AddNewController implements Initializable {
     @FXML
     private void saveTask(ActionEvent event) {
         try {
-            
- 
             Alert alrt = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
+            alrt.setTitle("Invalid Input");
             boolean invalidInp = false;
             if (txtTitle.getText().isBlank()) {
                 alrt.setContentText(alrt.getContentText() + "TITLE IS REQUIRED\n");
                 invalidInp = true;
             }
             if (txtDesc.getText().isBlank()) {
-                alrt.setContentText(alrt.getContentText() + "DESCRIPTION IS REQUIRED");
+                alrt.setContentText(alrt.getContentText() + "DESCRIPTION IS REQUIRED\n");
                 invalidInp = true;
             }
             if (dteDue.getValue() == null) {
-                alrt.setContentText(alrt.getContentText() + "DUE DATE IS REQUIRED");
+                alrt.setContentText(alrt.getContentText() + "DUE DATE IS REQUIRED\n");
                 invalidInp = true;
             }
             if (invalidInp) {
-            alrt.show();
-            return;
-        }
+                alrt.show();
+                return;
+            }
             String title = txtTitle.getText();
             String desc = txtDesc.getText();
             Date due = Date.valueOf(dteDue.getValue());

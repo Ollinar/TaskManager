@@ -50,6 +50,7 @@ public class LandingController implements Initializable {
     @FXML
     private void go(ActionEvent event) throws IOException {
         try {
+
             Parent root = App.loadFXML("Today");
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -70,11 +71,11 @@ public class LandingController implements Initializable {
                 }
             });
 
+
             stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-            stage.showAndWait();
-          
+            stage.show();
+            ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+
            
         } catch (IOException ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
