@@ -5,17 +5,23 @@
 package com.saklam.taskmanager.controllers;
 
 import com.saklam.taskmanager.App;
+import com.saklam.taskmanager.Database;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -29,6 +35,9 @@ public class LandingController implements Initializable {
 
     @FXML
     private Button btnGetStarted;
+    private double xOffset = 0;
+
+    private double yOffset = 0;
 
     /**
      * Initializes the controller class.
@@ -40,15 +49,37 @@ public class LandingController implements Initializable {
 
     @FXML
     private void go(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Today.fxml"));
-        Scene scene = new Scene(root);
-        Stage newWindow = new Stage();
-        newWindow.initStyle(StageStyle.UNDECORATED);
-        newWindow.setScene(scene);
-        newWindow.initModality(Modality.APPLICATION_MODAL);
-        newWindow.initOwner(((Node) event.getSource()).getScene().getWindow());
-        newWindow.showAndWait();
-    }
+        try {
+            Parent root = App.loadFXML("Today");
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    xOffset = event.getSceneX();
+                    yOffset = event.getSceneY();
+                }
+            });
+            scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    stage.setX(event.getScreenX() - xOffset);
+                    stage.setY(event.getScreenY() - yOffset);
+                }
+            });
+
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+            stage.showAndWait();
+          
+           
+        } catch (IOException ex) {
+            new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
+        }
     
+    }
     
 }
