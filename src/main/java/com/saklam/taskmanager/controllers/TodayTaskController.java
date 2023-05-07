@@ -198,7 +198,7 @@ public class TodayTaskController implements Initializable {
     void generateQR(ActionEvent event) {
         try {
             TaskInfo selectedTask = SelectedTask.getINSTANCE().getSelectedTask();
-            String toEncode = selectedTask.getTaskName() +"||"+selectedTask.getTaskDesc()+"||"+selectedTask.getStatus()+"||"+ String.valueOf(selectedTask.getImprotance()) + "||" + selectedTask.getDueDate().toString();
+            String toEncode = selectedTask.getTaskName() +"||"+selectedTask.getTaskDesc()+"||"+ String.valueOf(selectedTask.getImprotance()) + "||" + selectedTask.getDueDate().toString();
             BufferedImage temp = QRGen.generateQR(Encryptor.encrypt(toEncode, "saklam"), 500);
             QRStore.getINSTANCE().setBuffredImage(temp);
             Parent root = App.loadFXML("QRView");
@@ -277,7 +277,10 @@ public class TodayTaskController implements Initializable {
         SortedList<TaskInfo> sorted = new SortedList<>(filter);
         sorted.comparatorProperty().bind(taskTable.comparatorProperty());
         taskTable.setItems(sorted);
-        filter.setPredicate(taskInfo -> true);
+        
+        LocalDate dateNow = LocalDate.now();
+        Date today = Date.valueOf(dateNow);
+        filter.setPredicate(taskInfo -> (taskInfo.getDueDate().compareTo(today) == 0) && taskInfo.getStatus().equalsIgnoreCase("Pending"));
         disableControllButtons();
         taskTable.getSelectionModel().selectedItemProperty().addListener((obv, oldVal, newVal) -> {
             if (newVal != null) {

@@ -28,6 +28,10 @@ public class TaskInfo {
         this.improtance = improtance;
     }
 
+    public TaskInfo() {
+    }
+    
+
 
     
 
