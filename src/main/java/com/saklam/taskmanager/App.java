@@ -21,9 +21,9 @@ public class App extends Application {
     @Override
     public void start(Stage PrimStage) throws IOException {
 
-        scene = new Scene(loadFXML("Today"));
+        scene = new Scene(loadFXML("Landing"));
         stage = new Stage();
-        stage.setTitle("Task Completed");
+        stage.setTitle("Keeper");
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();

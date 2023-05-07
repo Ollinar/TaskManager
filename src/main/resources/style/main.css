@@ -5,13 +5,14 @@
 
 /*main fxml css*/
 .leftv{
-    -fx-background-color: #20474c;
+    -fx-background-color: #0e112b;
 }
 .centerv{
-    -fx-background-color: #2b8c97;
+    -fx-background-image: url(C:\Users\ACER\Documents\NetBeansProjects\TM\TaskManager\src\main\resources\images\BG2.png);
+    -fx-background-size: 100% 100%;
 }
 .rightv{
-    -fx-background-color: #061737;
+    -fx-background-color: #374c9e;
 }
 .sideheader{
     -fx-background-color: transparent;
@@ -20,7 +21,10 @@
     -fx-background-color: transparent;
     -fx-justify-content: center;
     -fx-align-content: center;
-   
+  
+}
+.centerBG{
+    
 }
 .btns:hover{
     -fx-background-color: #304261;
@@ -34,7 +38,14 @@
 .btns:focused{
     -fx-background-color: #1c3461;
 }
-
+/*landing fxml css*/
+.btnGST{
+    -fx-background-color: transparent;
+    -fx-border-color: #fff;
+}
+.btnGST:hover{
+    -fx-background-color: #0e112b;
+}
 /*add new fxml css*/
 
 .tophead{
@@ -63,5 +74,9 @@
     
 }
 .bg{
-    -fx-background-color: #223657;
+    -fx-background-color: #1f1254;
+}
+
+.addbg{
+    -fx-background-color:#1f1254;
 }

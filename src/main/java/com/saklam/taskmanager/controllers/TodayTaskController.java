@@ -45,6 +45,7 @@ import javafx.stage.StageStyle;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.swing.JOptionPane;
 
 public class TodayTaskController implements Initializable {
 
@@ -93,6 +94,13 @@ public class TodayTaskController implements Initializable {
     private double xOffset = 0;
 
     private double yOffset = 0;
+    @FXML
+    private Button btnClose;
+    
+    @FXML
+    private void close(ActionEvent event) {
+        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+    }
 
     private void disableControllButtons() {
         btnMarkDone.setDisable(true);
@@ -139,7 +147,9 @@ public class TodayTaskController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.showAndWait();
+          
             Database.refreshTaskList(taskList);
+           
         } catch (IOException | SQLException ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
         }
@@ -151,10 +161,14 @@ public class TodayTaskController implements Initializable {
             Database.deleteTask(SelectedTask.getINSTANCE().getSelectedTask());
             disableControllButtons();
             Database.refreshTaskList(taskList);
+            
             SelectedTask.getINSTANCE().setSelectedTask(null);
             taskTable.getSelectionModel().clearSelection();
             taskTable.setDisable(true);
             taskTable.setDisable(false);
+            JOptionPane.showMessageDialog(null, "Deleted Successful","Message",JOptionPane.INFORMATION_MESSAGE);
+
+            
         } catch (SQLException ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
         }
@@ -237,7 +251,7 @@ public class TodayTaskController implements Initializable {
         lblHeader.setText("Completed Task");
         finishSelected = true;
         taskTable.getSelectionModel().clearSelection();
-    }
+          }
 
     @FXML
     void goUpcoming(ActionEvent event) {
@@ -297,4 +311,6 @@ public class TodayTaskController implements Initializable {
     private void selectTask(MouseEvent event) {
 
     }
+
+    
 }

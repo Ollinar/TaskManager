@@ -30,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -65,20 +66,26 @@ public class AddNewController implements Initializable {
     @FXML
     private void saveTask(ActionEvent event) {
         try {
+            
+ 
             Alert alrt = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
             boolean invalidInp = false;
             if (txtTitle.getText().isBlank()) {
-                alrt.setContentText(alrt.getContentText() + "Empty Title, Please Enter");
+                alrt.setContentText(alrt.getContentText() + "TITLE IS REQUIRED\n");
                 invalidInp = true;
             }
             if (txtDesc.getText().isBlank()) {
-                alrt.setContentText(alrt.getContentText() + "Empty Title, Please Enter");
+                alrt.setContentText(alrt.getContentText() + "DESCRIPTION IS REQUIRED");
                 invalidInp = true;
             }
             if (dteDue.getValue() == null) {
-                alrt.setContentText(alrt.getContentText() + "Empty Due Date, Please Enter");
+                alrt.setContentText(alrt.getContentText() + "DUE DATE IS REQUIRED");
                 invalidInp = true;
             }
+            if (invalidInp) {
+            alrt.show();
+            return;
+        }
             String title = txtTitle.getText();
             String desc = txtDesc.getText();
             Date due = Date.valueOf(dteDue.getValue());
@@ -88,6 +95,8 @@ public class AddNewController implements Initializable {
             }else{
                 importance = 0;
             }
+            JOptionPane.showMessageDialog(null, "Added Successful","Message",JOptionPane.INFORMATION_MESSAGE);
+
             Database.insertTask(new TaskInfo(title,desc,due,importance));
             
             ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
@@ -100,6 +109,7 @@ public class AddNewController implements Initializable {
     @FXML
     private void openQRScanner(ActionEvent event) {
         try {
+          
             Parent root = App.loadFXML("QRScanner");
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -107,7 +117,10 @@ public class AddNewController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.showAndWait();
+            
             ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+            
+         
         } catch (IOException ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
         }

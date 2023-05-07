@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.swing.JOptionPane;
 
 public class QRScannerController implements Initializable {
 
@@ -96,14 +97,15 @@ public class QRScannerController implements Initializable {
                                     taskToInsert.setDueDate(Date.valueOf(temp[3]));
                                     
                                     Database.insertTask(taskToInsert);
-                                    
+                                    JOptionPane.showMessageDialog(null, "Added Successful","Message",JOptionPane.INFORMATION_MESSAGE);
+
                                     break;
                                     
                                 } catch (UnsupportedEncodingException | NumberFormatException | InvalidKeyException | NoSuchAlgorithmException | SQLException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
                                     new Alert(AlertType.ERROR,e.getMessage(),ButtonType.OK).show();
                                 }
                             }
-
+                            
                         } catch (NotFoundException ex) {
                         }
 
