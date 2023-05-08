@@ -100,7 +100,9 @@ public class TodayTaskController implements Initializable {
     private Button btnClose1;
     @FXML
     private Button btnMinimize;
-    
+    @FXML
+    private Button btnOverDue;
+
     @FXML
     private void close(ActionEvent event) {
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
@@ -108,7 +110,7 @@ public class TodayTaskController implements Initializable {
 
     @FXML
     private void minimize(ActionEvent event) {
-        Stage stage= (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
@@ -120,7 +122,7 @@ public class TodayTaskController implements Initializable {
     }
 
     private void enableControllButtons() {
-        
+
         btnDelete.setDisable(false);
         if (!finishSelected) {
             btnEdit.setDisable(false);
@@ -157,9 +159,9 @@ public class TodayTaskController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.showAndWait();
-          
+
             Database.refreshTaskList(taskList);
-           
+
         } catch (IOException | SQLException ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
         }
@@ -171,14 +173,13 @@ public class TodayTaskController implements Initializable {
             Database.deleteTask(SelectedTask.getINSTANCE().getSelectedTask());
             disableControllButtons();
             Database.refreshTaskList(taskList);
-            
+
             SelectedTask.getINSTANCE().setSelectedTask(null);
             taskTable.getSelectionModel().clearSelection();
             taskTable.setDisable(true);
             taskTable.setDisable(false);
-            JOptionPane.showMessageDialog(null, "Deleted Successful","Message",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Deleted Successful", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-            
         } catch (SQLException ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
         }
@@ -223,7 +224,7 @@ public class TodayTaskController implements Initializable {
         try {
             final String SEPARATOR = "<ranilloPogi>";
             TaskInfo selectedTask = SelectedTask.getINSTANCE().getSelectedTask();
-            String toEncode = selectedTask.getTaskName() + SEPARATOR +selectedTask.getTaskDesc()+ SEPARATOR + selectedTask.getImprotance() + SEPARATOR + selectedTask.getDueDate().toString();
+            String toEncode = selectedTask.getTaskName() + SEPARATOR + selectedTask.getTaskDesc() + SEPARATOR + selectedTask.getImprotance() + SEPARATOR + selectedTask.getDueDate().toString();
             BufferedImage temp = QRGen.generateQR(Encryptor.encrypt(toEncode, "saklam"), 500);
             QRStore.getINSTANCE().setBuffredImage(temp);
             Parent root = App.loadFXML("QRView");
@@ -235,7 +236,7 @@ public class TodayTaskController implements Initializable {
             stage.showAndWait();
         } catch (Exception ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
-        } 
+        }
     }
 
     @FXML
@@ -262,11 +263,13 @@ public class TodayTaskController implements Initializable {
         lblHeader.setText("Completed Task");
         finishSelected = true;
         taskTable.getSelectionModel().clearSelection();
-          }
+    }
 
     @FXML
     void goUpcoming(ActionEvent event) {
-        filter.setPredicate(taskInfo -> taskInfo.getStatus().equalsIgnoreCase("Pending"));
+        LocalDate dateNow = LocalDate.now();
+        Date today = Date.valueOf(dateNow);
+        filter.setPredicate(taskInfo -> taskInfo.getStatus().equalsIgnoreCase("Pending") && (taskInfo.getDueDate().compareTo(today) >= 0));
         lblHeader.setText("Impending Task");
         finishSelected = false;
         taskTable.getSelectionModel().clearSelection();
@@ -294,18 +297,18 @@ public class TodayTaskController implements Initializable {
         colDesc.setCellValueFactory(new PropertyValueFactory<>("taskDesc"));
         colDue.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         new Thread(() -> {
-                try {
-                    Database.refreshTaskList(taskList);
-                } catch (SQLException e) {
-                    Platform.runLater(()->new Alert(Alert.AlertType.ERROR,e.getMessage(),ButtonType.OK).show());
-                }
+            try {
+                Database.refreshTaskList(taskList);
+            } catch (SQLException e) {
+                Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show());
+            }
         }).start();
 
         filter = new FilteredList<>(taskList);
         SortedList<TaskInfo> sorted = new SortedList<>(filter);
         sorted.comparatorProperty().bind(taskTable.comparatorProperty());
         taskTable.setItems(sorted);
-        
+
         LocalDate dateNow = LocalDate.now();
         Date today = Date.valueOf(dateNow);
         filter.setPredicate(taskInfo -> (taskInfo.getDueDate().compareTo(today) == 0) && taskInfo.getStatus().equalsIgnoreCase("Pending"));
@@ -326,7 +329,14 @@ public class TodayTaskController implements Initializable {
 
     }
 
-    
+    @FXML
+    private void goOverdue(ActionEvent event) {
+        lblHeader.setText("Over Due Tasks");
+        LocalDate dateNow = LocalDate.now();
+        Date today = Date.valueOf(dateNow);
+        filter.setPredicate(taskInfo -> (taskInfo.getDueDate().compareTo(today) < 0) && taskInfo.getStatus().equalsIgnoreCase("Pending"));
+        finishSelected = false;
+        taskTable.getSelectionModel().clearSelection();
+    }
 
-    
 }

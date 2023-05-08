@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class Database {
     private static final String dbUrl="jdbc:mysql://localhost:3306/taskmanagerdb";
-    private static final String dbPass = "carpio15";
+    private static final String dbPass = "";
     private static final String dbUsername = "root";
 
 
