@@ -42,9 +42,9 @@
                         </Label>
                         <Button fx:id="btnClose" layoutX="652.0" layoutY="7.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="31.0" styleClass="btnClose" stylesheets="@../styles/main.css">
                            <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/icons8-close-window-30.png" />
+                                    <Image url="@../images/icons8-cancel-48.png" />
                                  </image>
                               </ImageView>
                            </graphic>

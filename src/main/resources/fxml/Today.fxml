@@ -101,7 +101,7 @@
                <children>
                   <Pane prefHeight="648.0" prefWidth="678.0" stylesheets="@../style/main.css">
                      <children>
-                        <ImageView fitHeight="709.0" fitWidth="1151.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="644.0" fitWidth="1146.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/BG2.png" />
                            </image>
@@ -177,11 +177,20 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnClose" layoutX="853.0" layoutY="14.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="31.0" styleClass="btnClose" stylesheets="@../styles/main.css">
+                        <Button fx:id="btnClose1" layoutX="855.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="31.0" styleClass="btnClose" stylesheets="@../styles/main.css">
                            <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/icons8-close-window-30.png" />
+                                    <Image url="@../images/icons8-cancel-48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnMinimize" layoutX="816.0" layoutY="5.0" mnemonicParsing="false" onAction="#minimize" prefHeight="25.0" prefWidth="31.0" styleClass="btnClose" stylesheets="@../styles/main.css">
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8-subtract-50.png" />
                                  </image>
                               </ImageView>
                            </graphic>

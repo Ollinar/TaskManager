@@ -51,6 +51,24 @@
                            <font>
                               <Font name="Comic Sans MS" size="15.0" />
                            </font></Button>
+                        <Button fx:id="btnClose" layoutX="753.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="31.0" styleClass="btnClose" stylesheets="@../styles/main.css">
+                           <graphic>
+                              <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8-cancel-48.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnMinimize" layoutX="714.0" layoutY="5.0" mnemonicParsing="false" onAction="#minimize" prefHeight="25.0" prefWidth="31.0" styleClass="btnClose" stylesheets="@../styles/main.css">
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icons8-subtract-50.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </Pane>
                </children>

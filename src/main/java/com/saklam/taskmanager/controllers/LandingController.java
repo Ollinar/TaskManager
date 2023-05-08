@@ -38,6 +38,10 @@ public class LandingController implements Initializable {
     private double xOffset = 0;
 
     private double yOffset = 0;
+    @FXML
+    private Button btnClose;
+    @FXML
+    private Button btnMinimize;
 
     /**
      * Initializes the controller class.
@@ -80,6 +84,17 @@ public class LandingController implements Initializable {
             new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK).show();
         }
     
+    }
+
+    @FXML
+    private void close(ActionEvent event) {
+        ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+    }
+
+    @FXML
+    private void minimize(ActionEvent event) {
+        Stage stage= (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
     
 }

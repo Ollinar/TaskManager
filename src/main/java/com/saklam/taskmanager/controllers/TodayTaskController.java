@@ -95,11 +95,19 @@ public class TodayTaskController implements Initializable {
 
     private double yOffset = 0;
     @FXML
-    private Button btnClose;
+    private Button btnClose1;
+    @FXML
+    private Button btnMinimize;
     
     @FXML
     private void close(ActionEvent event) {
         ((Stage) ((Button) event.getSource()).getScene().getWindow()).close();
+    }
+
+    @FXML
+    private void minimize(ActionEvent event) {
+        Stage stage= (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 
     private void disableControllButtons() {
@@ -311,6 +319,8 @@ public class TodayTaskController implements Initializable {
     private void selectTask(MouseEvent event) {
 
     }
+
+    
 
     
 }
