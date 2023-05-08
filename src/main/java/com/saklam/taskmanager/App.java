@@ -30,6 +30,7 @@ public class App extends Application {
         stage.setTitle("Keeper");
         stage.setScene(scene);
         stage.sizeToScene();
+        stage.setResizable(false);
         stage.show();
         stage.initStyle(StageStyle.UNDECORATED);*/
        

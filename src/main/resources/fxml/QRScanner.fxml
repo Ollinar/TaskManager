@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,7 +12,4 @@
          </image>
       </ImageView>
    </center>
-   <bottom>
-      <Label fx:id="testResult" prefHeight="18.0" prefWidth="346.0" text="nbkjhblh" textFill="#f7f7f7" BorderPane.alignment="CENTER" />
-   </bottom>
 </BorderPane>

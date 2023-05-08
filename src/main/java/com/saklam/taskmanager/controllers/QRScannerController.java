@@ -1,6 +1,7 @@
 package com.saklam.taskmanager.controllers;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamException;
 import com.google.zxing.*;
 
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
@@ -49,8 +50,6 @@ public class QRScannerController implements Initializable {
 
     ObjectProperty<Image> imageObjectProperty = new SimpleObjectProperty<>();
     Webcam webcam;
-    @FXML
-    private Label testResult;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,56 +62,61 @@ public class QRScannerController implements Initializable {
     }
 
     private void initWebcam() {
-        Task<Void> webcamCapture = new Task<Void>() {
+        Task<Void> webcamCapture = new Task<>() {
             @Override
             protected Void call() {
-                webcam = Webcam.getDefault();
-                webcam.open();
-                final AtomicReference<WritableImage> reference = new AtomicReference<>();
-                BufferedImage bfi;
-                boolean onGoing = true;
+                try {
+                    webcam = Webcam.getDefault();
+                    webcam.open();
+                    final AtomicReference<WritableImage> reference = new AtomicReference<>();
+                    while (webcam.isOpen()) {
+                        BufferedImage bfi;
+                        if ((bfi = webcam.getImage()) != null) {
+                            reference.set(SwingFXUtils.toFXImage(bfi, reference.get()));
+                            bfi.flush();
+                            Platform.runLater(() -> imageObjectProperty.set(reference.get()));
 
-                while (onGoing) {
-                    if ((bfi = webcam.getImage()) != null) {
-                        reference.set(SwingFXUtils.toFXImage(bfi, reference.get()));
-                        bfi.flush();
-                        Platform.runLater(() -> imageObjectProperty.set(reference.get()));
+                            LuminanceSource luminanceSource = new BufferedImageLuminanceSource(bfi);
+                            BinaryBitmap bmp = new BinaryBitmap(new HybridBinarizer(luminanceSource));
 
-                        LuminanceSource luminanceSource = new BufferedImageLuminanceSource(bfi);
-                        BinaryBitmap bmp = new BinaryBitmap(new HybridBinarizer(luminanceSource));
+                            try {
+                                Result result = new MultiFormatReader().decode(bmp);
+                                if (result.getText() != null) {
+                                    try {
 
-                        try {
-                            Result result = new MultiFormatReader().decode(bmp);
-                            if (result.getText() != null) {try {
-                                    
-                                    String beforeSplit = Encryptor.decrypt(result.getText(), "saklam");
-                                    String[] temp = beforeSplit.split("\\|\\|");
-                                    Platform.runLater(() -> {
-                                        testResult.setText(beforeSplit);
-                                    });
-                                    TaskInfo taskToInsert = new TaskInfo();
-                                    taskToInsert.setTaskName(temp[0]);
-                                    taskToInsert.setTaskDesc(temp[1]);
-                                    taskToInsert.setImprotance(Integer.parseInt(temp[2]));
-                                    taskToInsert.setDueDate(Date.valueOf(temp[3]));
-                                    
-                                    Database.insertTask(taskToInsert);
-                                    JOptionPane.showMessageDialog(null, "Added Successful","Message",JOptionPane.INFORMATION_MESSAGE);
+                                        String beforeSplit = Encryptor.decrypt(result.getText(), "saklam");
+                                        String[] temp = beforeSplit.split("<ranilloPogi>");
+                                        TaskInfo taskToInsert = new TaskInfo();
+                                        taskToInsert.setTaskName(temp[0]);
+                                        taskToInsert.setTaskDesc(temp[1]);
+                                        taskToInsert.setImprotance(Integer.parseInt(temp[2]));
+                                        taskToInsert.setDueDate(Date.valueOf(temp[3]));
 
-                                    break;
-                                    
-                                } catch (UnsupportedEncodingException | NumberFormatException | InvalidKeyException | NoSuchAlgorithmException | SQLException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
-                                    new Alert(AlertType.ERROR,e.getMessage(),ButtonType.OK).show();
+                                        Database.insertTask(taskToInsert);
+                                        JOptionPane.showMessageDialog(null, "Added Successful", "Message", JOptionPane.INFORMATION_MESSAGE);
+
+                                        break;
+
+                                    } catch (UnsupportedEncodingException | NumberFormatException | InvalidKeyException |
+                                             NoSuchAlgorithmException | SQLException | BadPaddingException |
+                                             IllegalBlockSizeException | NoSuchPaddingException e) {
+                                        Platform.runLater(() -> new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK).show());
+                                    }
                                 }
-                            }
-                            
-                        } catch (NotFoundException ex) {
-                        }
 
+                            } catch (NotFoundException ex) {
+                            }
+
+                        }
                     }
+                } catch (WebcamException | HeadlessException e) {
+                    Platform.runLater(()->new Alert(AlertType.ERROR, e.getMessage(), ButtonType.OK).show());
+                }finally {
+                    if (webcam != null)
+                        webcam.close();
                 }
-                Platform.runLater(()->{
-                    ((Stage)(webcamView.getScene().getWindow())).close();
+                Platform.runLater(() -> {
+                    ((Stage) (webcamView.getScene().getWindow())).close();
                 });
                 return null;
             }
