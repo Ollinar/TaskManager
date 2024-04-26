@@ -96,7 +96,7 @@
                      <children>
                         <Pane prefHeight="143.0" prefWidth="666.0">
                            <children>
-                              <DatePicker fx:id="dteDue" layoutX="118.0" layoutY="14.0" prefHeight="34.0" prefWidth="335.0" />
+                              <DatePicker fx:id="dteDue" editable="false" layoutX="118.0" layoutY="14.0" prefHeight="34.0" prefWidth="335.0" />
                               <Label contentDisplay="RIGHT" graphicTextGap="55.0" layoutY="18.0" prefHeight="26.0" prefWidth="105.0" text="DUE DATE:" textFill="WHITE">
                                  <font>
                                     <Font name="Comic Sans MS" size="13.0" />

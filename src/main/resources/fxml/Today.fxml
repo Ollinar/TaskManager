@@ -6,18 +6,20 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="644.0" prefWidth="1095.0" styleClass="mainFxmlClass" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saklam.taskmanager.controllers.TodayTaskController">
    <children>
       <BorderPane prefHeight="628.0" prefWidth="967.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
+        <left>
             <VBox prefHeight="644.0" prefWidth="188.0" styleClass="leftv" stylesheets="@../styles/main.css" BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" prefHeight="108.0" prefWidth="242.0" styleClass="sideheader" stylesheets="@../styles/main.css" text="DASHBOARD" textFill="WHITE">
@@ -118,6 +120,12 @@
                               <Image url="@../images/BG2.png" />
                            </image>
                         </ImageView>
+                    <HBox layoutX="39.0" layoutY="40.0" prefHeight="25.0" prefWidth="177.0">
+                        <children>
+                           <TextField fx:id="txtSearch" prefHeight="26.0" prefWidth="149.0" promptText="Search Task" styleClass="search" stylesheets="@../styles/user.css" />
+                        </children>
+                    </HBox>
+                    
                         <TableView fx:id="taskTable" layoutX="39.0" layoutY="77.0" onMouseClicked="#selectTask" prefHeight="498.0" prefWidth="797.0" styleClass="tbView">
                            <columns>
                               <TableColumn fx:id="colTaskName" prefWidth="167.19998741149902" style="-fx-background-color: transparent;" text="Task Name" />

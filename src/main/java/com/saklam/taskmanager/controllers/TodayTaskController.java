@@ -82,6 +82,7 @@ public class TodayTaskController implements Initializable {
 
     ObservableList<TaskInfo> taskList = FXCollections.observableArrayList();
     FilteredList<TaskInfo> filter;
+    FilteredList<TaskInfo> searchFilter;
     @FXML
     private Button btnEdit;
     @FXML
@@ -102,6 +103,8 @@ public class TodayTaskController implements Initializable {
     private Button btnMinimize;
     @FXML
     private Button btnOverDue;
+    @FXML
+    private TextField txtSearch;
 
     @FXML
     private void close(ActionEvent event) {
@@ -269,7 +272,7 @@ public class TodayTaskController implements Initializable {
     void goUpcoming(ActionEvent event) {
         LocalDate dateNow = LocalDate.now();
         Date today = Date.valueOf(dateNow);
-        filter.setPredicate(taskInfo -> taskInfo.getStatus().equalsIgnoreCase("Pending") && (taskInfo.getDueDate().compareTo(today) >= 0));
+        filter.setPredicate(taskInfo -> taskInfo.getStatus().equalsIgnoreCase("Pending") && (taskInfo.getDueDate().compareTo(today) > 0));
         lblHeader.setText("Impending Task");
         finishSelected = false;
         taskTable.getSelectionModel().clearSelection();
@@ -305,9 +308,19 @@ public class TodayTaskController implements Initializable {
         }).start();
 
         filter = new FilteredList<>(taskList);
-        SortedList<TaskInfo> sorted = new SortedList<>(filter);
+        searchFilter = new FilteredList<>(filter);
+        SortedList<TaskInfo> sorted = new SortedList<>(searchFilter);
         sorted.comparatorProperty().bind(taskTable.comparatorProperty());
         taskTable.setItems(sorted);
+        
+        txtSearch.textProperty().addListener((obv,oldVal,newVal)->{
+            String keyword = newVal.toLowerCase();
+            searchFilter.setPredicate(tsk->{
+                return newVal == null||newVal.isBlank()||newVal.isEmpty() 
+                        || String.valueOf(tsk.getTaskName()).contains(keyword)
+                        || String.valueOf(tsk.getTaskDesc()).contains(keyword);
+            });
+        });
 
         LocalDate dateNow = LocalDate.now();
         Date today = Date.valueOf(dateNow);
